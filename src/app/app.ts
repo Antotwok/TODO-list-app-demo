@@ -7,6 +7,8 @@ interface Todo {
   completed: boolean;
 }
 
+type TodoFilter = 'all' | 'active' | 'completed';
+
 @Component({
   selector: 'app-root',
   imports: [FormsModule],
@@ -16,6 +18,8 @@ interface Todo {
 export class App {
 
   newTodo = '';
+
+  filter: TodoFilter = 'all';
 
   todos: Todo[] = [
     {
@@ -55,5 +59,20 @@ export class App {
 
   deleteTodo(todo: Todo) {
     this.todos = this.todos.filter(t => t.id !== todo.id);
+  }
+
+  setFilter(filter: TodoFilter) {
+    this.filter = filter;
+  }
+
+  get filteredTodos(): Todo[] {
+    switch (this.filter) {
+      case 'active':
+        return this.todos.filter(t => !t.completed);
+      case 'completed':
+        return this.todos.filter(t => t.completed);
+      default:
+        return this.todos;
+    }
   }
 }
