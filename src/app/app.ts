@@ -1,25 +1,21 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
-
-type TodoFilter = 'all' | 'active' | 'completed';
+import { TodoCalendar } from './todo-calendar/todo-calendar';
+import { Todo, TodoFilter, TodoView } from './todo.model';
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule],
+  imports: [FormsModule, TodoCalendar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
 
   newTodo = '';
+  newDueDate = '';
 
   filter: TodoFilter = 'all';
+  view: TodoView = 'list';
 
   todos: Todo[] = [
     {
@@ -47,10 +43,12 @@ export class App {
     this.todos.push({
       id: Date.now(),
       title: this.newTodo,
-      completed: false
+      completed: false,
+      dueDate: this.newDueDate || undefined
     });
 
     this.newTodo = '';
+    this.newDueDate = '';
   }
 
   toggleTodo(todo: Todo) {
@@ -61,8 +59,16 @@ export class App {
     this.todos = this.todos.filter(t => t.id !== todo.id);
   }
 
+  updateDueDate(todo: Todo, dueDate: string) {
+    todo.dueDate = dueDate || undefined;
+  }
+
   setFilter(filter: TodoFilter) {
     this.filter = filter;
+  }
+
+  setView(view: TodoView) {
+    this.view = view;
   }
 
   get filteredTodos(): Todo[] {

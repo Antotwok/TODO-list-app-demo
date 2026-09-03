@@ -1,0 +1,47 @@
+<div class="calendar">
+
+  <div class="calendar-header">
+
+    <button (click)="previousMonth()">&lsaquo; Prev</button>
+
+    <span class="month-label">{{ monthLabel }}</span>
+
+    <button (click)="nextMonth()">Next &rsaquo;</button>
+
+    <button class="today-btn" (click)="today()">Today</button>
+
+  </div>
+
+  <div class="calendar-grid">
+
+    @for (label of weekdayLabels; track label) {
+      <div class="weekday">{{ label }}</div>
+    }
+
+    @for (week of weeks; track $index) {
+      @for (day of week; track day.dateKey) {
+
+        <div class="calendar-day" [class.outside-month]="!day.inCurrentMonth">
+
+          <div class="day-number">{{ day.date.getDate() }}</div>
+
+          @for (todo of day.todos; track todo.id) {
+
+            <div class="calendar-todo" [class.completed]="todo.completed">
+
+              <span (click)="toggleTodo.emit(todo)">{{ todo.title }}</span>
+
+              <button class="remove-btn" (click)="deleteTodo.emit(todo)">&times;</button>
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+    }
+
+  </div>
+
+</div>
