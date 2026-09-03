@@ -2,6 +2,24 @@
 
   <h1>My TODO List</h1>
 
+  <div class="view-toggle">
+
+    <button
+      [class.active]="view === 'list'"
+      (click)="setView('list')"
+    >
+      List
+    </button>
+
+    <button
+      [class.active]="view === 'calendar'"
+      (click)="setView('calendar')"
+    >
+      Calendar
+    </button>
+
+  </div>
+
   <div class="todo-input">
 
     <input
@@ -11,63 +29,89 @@
       (keyup.enter)="addTodo()"
     />
 
+    <input
+      type="date"
+      [(ngModel)]="newDueDate"
+      aria-label="Due date"
+    />
+
     <button (click)="addTodo()">
       Add Task
     </button>
 
   </div>
 
-  <div class="todo-filters">
+  @if (view === 'list') {
 
-    <button
-      [class.active]="filter === 'all'"
-      (click)="setFilter('all')"
-    >
-      All
-    </button>
+    <div class="todo-filters">
 
-    <button
-      [class.active]="filter === 'active'"
-      (click)="setFilter('active')"
-    >
-      Active
-    </button>
+      <button
+        [class.active]="filter === 'all'"
+        (click)="setFilter('all')"
+      >
+        All
+      </button>
 
-    <button
-      [class.active]="filter === 'completed'"
-      (click)="setFilter('completed')"
-    >
-      Completed
-    </button>
+      <button
+        [class.active]="filter === 'active'"
+        (click)="setFilter('active')"
+      >
+        Active
+      </button>
 
-  </div>
+      <button
+        [class.active]="filter === 'completed'"
+        (click)="setFilter('completed')"
+      >
+        Completed
+      </button>
 
-  <div class="todo-list">
+    </div>
 
-    @for (todo of filteredTodos; track todo.id) {
+    <div class="todo-list">
 
-      <div class="todo-item">
+      @for (todo of filteredTodos; track todo.id) {
 
-        <span [class.completed]="todo.completed">
-          {{ todo.title }}
-        </span>
+        <div class="todo-item">
 
-        <button
-          class="complete-btn"
-          [class.active]="todo.completed"
-          (click)="toggleTodo(todo)"
-        >
-          {{ todo.completed ? 'Completed' : 'Complete' }}
-        </button>
+          <span [class.completed]="todo.completed">
+            {{ todo.title }}
+          </span>
 
-        <button (click)="deleteTodo(todo)">
-          Delete
-        </button>
+          <input
+            type="date"
+            class="due-date-input"
+            [ngModel]="todo.dueDate"
+            (ngModelChange)="updateDueDate(todo, $event)"
+            aria-label="Due date"
+          />
 
-      </div>
+          <button
+            class="complete-btn"
+            [class.active]="todo.completed"
+            (click)="toggleTodo(todo)"
+          >
+            {{ todo.completed ? 'Completed' : 'Complete' }}
+          </button>
 
-    }
+          <button (click)="deleteTodo(todo)">
+            Delete
+          </button>
 
-  </div>
+        </div>
+
+      }
+
+    </div>
+
+  } @else {
+
+    <app-todo-calendar
+      [todos]="todos"
+      (toggleTodo)="toggleTodo($event)"
+      (deleteTodo)="deleteTodo($event)"
+    />
+
+  }
 
 </div>

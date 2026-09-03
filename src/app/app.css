@@ -9,16 +9,44 @@ h1 {
   margin-bottom: 30px;
 }
 
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.view-toggle button {
+  background: #eee;
+  color: #333;
+  padding: 8px 20px;
+}
+
+.view-toggle button.active {
+  background: #333;
+  color: white;
+}
+
 .todo-input {
   display: flex;
   gap: 10px;
   margin-bottom: 25px;
 }
 
-.todo-input input {
+.todo-input input[type="text"] {
   flex: 1;
   padding: 12px;
   font-size: 16px;
+}
+
+.todo-input input[type="date"] {
+  padding: 12px;
+  font-size: 14px;
+}
+
+.due-date-input {
+  padding: 6px;
+  font-size: 13px;
 }
 
 button {

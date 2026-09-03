@@ -1,0 +1,81 @@
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.calendar-header button {
+  background: #eee;
+  color: #333;
+  padding: 6px 12px;
+}
+
+.month-label {
+  font-weight: bold;
+  min-width: 160px;
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.weekday {
+  text-align: center;
+  font-weight: bold;
+  padding: 6px 0;
+  color: #666;
+}
+
+.calendar-day {
+  min-height: 90px;
+  border: 1px solid #ddd;
+  padding: 6px;
+  font-size: 12px;
+}
+
+.calendar-day.outside-month {
+  background: #f7f7f7;
+  color: #bbb;
+}
+
+.day-number {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.calendar-todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  background: #333;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+.calendar-todo span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-todo.completed {
+  background: #888;
+  text-decoration: line-through;
+}
+
+.remove-btn {
+  background: transparent;
+  color: white;
+  padding: 0 4px;
+  font-size: 14px;
+  line-height: 1;
+}
