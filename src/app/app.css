@@ -29,6 +29,23 @@ button {
   color: white;
 }
 
+.todo-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-filters button {
+  background: #eee;
+  color: #333;
+}
+
+.todo-filters button.active {
+  background: #333;
+  color: white;
+}
+
 .todo-item {
   display: flex;
   align-items: center;
@@ -44,4 +61,14 @@ button {
 .completed {
   text-decoration: line-through;
   color: #888;
+}
+
+.complete-btn {
+  background: #eee;
+  color: #333;
+}
+
+.complete-btn.active {
+  background: #2e7d32;
+  color: white;
 }
